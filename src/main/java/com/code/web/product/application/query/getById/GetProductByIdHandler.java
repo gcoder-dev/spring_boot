@@ -1,0 +1,27 @@
+package com.code.web.product.application.query.getById;
+
+import com.code.web.common.mediator.RequestHandler;
+import com.code.web.product.domain.entity.Product;
+import com.code.web.product.domain.exception.ProductNotFoundException;
+import com.code.web.product.domain.port.ProductRepository;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class GetProductByIdHandler implements RequestHandler<GetProductByIdRequest, GetProductByIdResponse> {
+
+    private final ProductRepository productRepository;
+
+    @Override
+    public GetProductByIdResponse handler(GetProductByIdRequest request) {
+        Product product = productRepository.findById(request.getId()).orElseThrow(() -> new ProductNotFoundException(request.getId()));
+        return new GetProductByIdResponse(product);
+    }
+
+    @Override
+    public Class<GetProductByIdRequest> getRequestType() {
+        return GetProductByIdRequest.class;
+    }
+}
