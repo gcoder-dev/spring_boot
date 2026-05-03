@@ -9,7 +9,9 @@ import com.code.web.product.application.query.getAll.GetAllProductResponse;
 import com.code.web.product.application.query.getById.GetProductByIdRequest;
 import com.code.web.product.application.query.getById.GetProductByIdResponse;
 import com.code.web.product.domain.entity.Product;
+import com.code.web.product.infrastructure.api.dtos.CreateProductDTO;
 import com.code.web.product.infrastructure.api.dtos.ProductDTO;
+import com.code.web.product.infrastructure.api.dtos.UpdateProductDTO;
 import com.code.web.product.infrastructure.api.mappers.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +50,7 @@ public class ProductController implements ProductAPI {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> create(@RequestBody CreateProductDTO productDTO) {
         CreateProductRequest request = productMapper.mapToCreateProductRequest(productDTO);
 
         mediator.dispatch(request);
@@ -57,7 +59,7 @@ public class ProductController implements ProductAPI {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> updateProduct(@RequestBody UpdateProductDTO productDTO) {
         UpdateProductRequest request = productMapper.mapToUpdateProductRequest(productDTO);
 
         mediator.dispatch(request);

@@ -19,7 +19,6 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
-                .image(request.getImage())
                 .build();
 
         productRepository.upsert(product);

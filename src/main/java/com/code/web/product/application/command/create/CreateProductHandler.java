@@ -21,7 +21,6 @@ public class CreateProductHandler implements RequestHandler<CreateProductRequest
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())
-                .image(request.getImage())
                 .build();
 
         productRepository.upsert(product);
@@ -32,4 +31,5 @@ public class CreateProductHandler implements RequestHandler<CreateProductRequest
     public Class<CreateProductRequest> getRequestType() {
         return CreateProductRequest.class;
     }
+
 }

@@ -1,6 +1,8 @@
 package com.code.web.product.infrastructure.api;
 
-import com.code.web.product.infrastructure.api.dtos.ProductDTO;
+import com.code.web.product.infrastructure.api.dtos.CreateProductDTO;
+import com.code.web.product.infrastructure.api.dtos.UpdateProductDTO;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,9 +13,9 @@ public interface ProductAPI {
 
     ResponseEntity<?> getProductById(@PathVariable Long id);
 
-    ResponseEntity<?> create(@RequestBody ProductDTO productDTO);
+    ResponseEntity<?> create(@RequestBody CreateProductDTO productDTO);
 
-    ResponseEntity<?> updateProduct(@RequestBody ProductDTO productDTO);
+    ResponseEntity<?> updateProduct(@RequestBody UpdateProductDTO productDTO);
 
     ResponseEntity<?> deleteProduct(@PathVariable Long id);
 }
