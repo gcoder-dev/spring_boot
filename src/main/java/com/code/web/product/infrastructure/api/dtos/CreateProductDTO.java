@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -18,5 +19,5 @@ public class CreateProductDTO {
     @DecimalMin(value = "0.2", inclusive = false)
     @DecimalMax(value = "3333.34", inclusive = false)
     private Double price;
-    private MultipartFile image;
+     private MultipartFile file;
 }

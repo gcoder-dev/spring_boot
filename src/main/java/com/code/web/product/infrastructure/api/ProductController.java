@@ -50,7 +50,7 @@ public class ProductController implements ProductAPI {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody CreateProductDTO productDTO) {
+    public ResponseEntity<?> create(@ModelAttribute CreateProductDTO productDTO) {
         CreateProductRequest request = productMapper.mapToCreateProductRequest(productDTO);
 
         mediator.dispatch(request);
@@ -59,7 +59,7 @@ public class ProductController implements ProductAPI {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateProduct(@RequestBody UpdateProductDTO productDTO) {
+    public ResponseEntity<?> updateProduct(@ModelAttribute UpdateProductDTO productDTO) {
         UpdateProductRequest request = productMapper.mapToUpdateProductRequest(productDTO);
 
         mediator.dispatch(request);
@@ -70,7 +70,7 @@ public class ProductController implements ProductAPI {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        mediator.dispatch(new DeleteProductRequest(id));
-        return null;
+        mediator.dispatchAsync(new DeleteProductRequest(id));
+        return ResponseEntity.accepted().build();
     }
 }
