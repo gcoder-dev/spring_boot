@@ -15,19 +15,21 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.UUID;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UpdateProductHandler implements RequestHandler<UpdateProductRequest, Void> {
     private final ProductRepository productRepository;
     private final FileUtils fileUtils;
 
     @Override
     public Void handler(UpdateProductRequest request) {
-
+        log.info("Updating product with id: {}",request.getId());
         MultipartFile file = request.getFile();
 
         String uniqueFileName = fileUtils.saveProductImage(request.getFile());
@@ -43,6 +45,7 @@ public class UpdateProductHandler implements RequestHandler<UpdateProductRequest
                 .build();
 
         productRepository.upsert(product);
+        log.info("Updated product with id: {}",product.getId());
         return null;
     }
 

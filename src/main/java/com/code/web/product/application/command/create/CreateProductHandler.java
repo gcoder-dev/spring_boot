@@ -6,6 +6,7 @@ import com.code.web.product.domain.entity.Product;
 import com.code.web.product.domain.port.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CreateProductHandler implements RequestHandler<CreateProductRequest, Void> {
 
     private final ProductRepository productRepository;
@@ -26,6 +28,7 @@ public class CreateProductHandler implements RequestHandler<CreateProductRequest
 
     @Override
     public Void handler(CreateProductRequest request) {
+        log.info("Saving product with id: {}", request.getId());
 
         String uniqueFileName = fileUtils.saveProductImage(request.getFile());
 

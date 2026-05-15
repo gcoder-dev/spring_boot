@@ -6,17 +6,21 @@ import com.code.web.product.domain.exception.ProductNotFoundException;
 import com.code.web.product.domain.port.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GetProductByIdHandler implements RequestHandler<GetProductByIdRequest, GetProductByIdResponse> {
 
     private final ProductRepository productRepository;
 
     @Override
     public GetProductByIdResponse handler(GetProductByIdRequest request) {
+        log.info("Getting product with id: {}",request.getId());
         Product product = productRepository.findById(request.getId()).orElseThrow(() -> new ProductNotFoundException(request.getId()));
+        log.info("Found product with id: {}",product.getId());
         return new GetProductByIdResponse(product);
     }
 

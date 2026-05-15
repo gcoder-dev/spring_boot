@@ -5,6 +5,9 @@ import com.code.web.product.domain.port.ProductRepository;
 import com.code.web.product.infrastructure.database.entity.ProductEntity;
 import com.code.web.product.infrastructure.database.mapper.ProductEntityMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class ProductRepositoryImplement implements ProductRepository {
 
     private final List<ProductEntity> productEntities = new ArrayList<>();
@@ -28,7 +32,9 @@ public class ProductRepositoryImplement implements ProductRepository {
     }
 
     @Override
+    @Cacheable(value = "productEntities", key = "#id")
     public Optional<Product> findById(Long id) {
+        log.info("Finding product with id: {}",id);
         return productEntities
                 .stream()
                 .filter(product -> Objects.equals(product.getId(), id))
@@ -38,14 +44,22 @@ public class ProductRepositoryImplement implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return productEntities
+
+        List<Product> list = productEntities
                 .stream()
                 .map(mapper::mapToProduct)
                 .toList();
+
+
+        return list;
+
     }
 
     @Override
-    public void deleteById(Long id) {
+    @CacheEvict(value = "productEntities", key = "#id")
+    public void deleteById(Long i
+
+                           /. d) {
         productEntities.removeIf(product -> Objects.equals(product.getId(), id));
     }
 }

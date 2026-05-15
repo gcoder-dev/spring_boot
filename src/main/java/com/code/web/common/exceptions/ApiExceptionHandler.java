@@ -14,12 +14,12 @@ import com.code.web.product.domain.exception.ProductNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseBody
     public ErrorMessage badRequest(HttpServletRequest request, MethodArgumentNotValidException exception){
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getFieldErrors().forEach(
@@ -34,7 +34,6 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ProductNotFoundException.class)
-    @ResponseBody
     public ErrorMessage notFound(HttpServletRequest request, Exception exception){
         
         

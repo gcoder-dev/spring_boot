@@ -4,10 +4,12 @@ import com.code.web.common.mediator.RequestHandler;
 import com.code.web.product.domain.port.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DeleteProductHandler implements RequestHandler<DeleteProductRequest, Void> {
 
     private final ProductRepository productRepository;
@@ -15,8 +17,7 @@ public class DeleteProductHandler implements RequestHandler<DeleteProductRequest
 
     @Override
     public Void handler(DeleteProductRequest request) {
-
-        System.out.println("Eliminando producto con el id: "+request.getId()+" ...");
+        log.info("Deleting product with id: {}",request.getId());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
