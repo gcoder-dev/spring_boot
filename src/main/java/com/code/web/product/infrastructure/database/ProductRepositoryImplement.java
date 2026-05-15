@@ -57,9 +57,7 @@ public class ProductRepositoryImplement implements ProductRepository {
 
     @Override
     @CacheEvict(value = "productEntities", key = "#id")
-    public void deleteById(Long i
-
-                           /. d) {
+    public void deleteById(Long id) {
         productEntities.removeIf(product -> Objects.equals(product.getId(), id));
     }
 }

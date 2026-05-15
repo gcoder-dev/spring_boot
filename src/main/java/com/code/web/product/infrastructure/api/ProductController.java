@@ -32,19 +32,22 @@ public class ProductController implements ProductAPI {
 
 
     @GetMapping("/getAllProducts")
-    public ResponseEntity<?> getAllProducts(@RequestParam(required = false) String pageSize) {
+    public ResponseEntity<List<ProductDTO>> getAllProducts(@RequestParam(required = false) String pageSize) {
         log.info("Getting all products");
         GetAllProductResponse response = mediator.dispatch(new GetAllProductRequest());
         List<ProductDTO> productDTOS = response.getProducts().stream().map(productMapper::mapToProductDTO).toList();
         log.info("Found {} products",productDTOS.size() );
 
-        return ResponseEntity.ok(productDTOS);
+        return ResponseEntity.ok().body(productDTOS);
     }
 
 
     @GetMapping("product/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         log.info("Getting product with id: {} ",id);
+
+
+
 
         GetProductByIdResponse response = mediator.dispatch(new GetProductByIdRequest(id));
 
